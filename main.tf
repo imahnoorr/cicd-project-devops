@@ -6,6 +6,12 @@ terraform {
       version = ">= 5.0.0"
     }
   }
+
+  backend "s3" {
+    bucket = "my-new-website-202512131943"   # tumhara existing bucket
+    key    = "terraform.tfstate"             # state file ka naam
+    region = "us-east-2"
+  }
 }
 
 provider "aws" {
