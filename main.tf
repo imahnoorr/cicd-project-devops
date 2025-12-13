@@ -12,9 +12,15 @@ provider "aws" {
   region = var.aws_region
 }
 
-# Create S3 bucket with unique name
+# Create S3 bucket only if not already created (manage existing bucket)
 resource "aws_s3_bucket" "website" {
   bucket = var.bucket_name
+
+  force_destroy = true   # allow overwriting contents
+
+  lifecycle {
+    prevent_destroy = false
+  }
 
   tags = {
     Name        = var.bucket_name
@@ -22,6 +28,7 @@ resource "aws_s3_bucket" "website" {
     ManagedBy   = "Terraform"
   }
 }
+
 
 # Enable static website hosting
 resource "aws_s3_bucket_website_configuration" "website" {
