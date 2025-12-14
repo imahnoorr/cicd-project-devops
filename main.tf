@@ -85,6 +85,8 @@ resource "aws_s3_object" "index" {
   source       = "${path.module}/index.html"
   content_type = "text/html"
 
+   etag = filemd5("${path.module}/index.html")
+
   # For website hosting, no ACL is needed when policy allows public read
   # If older accounts require, uncomment the following:
   # acl = "public-read"
